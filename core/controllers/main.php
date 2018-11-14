@@ -3,4 +3,3 @@
 	{
 		render('index', ['title'=>'Index Page']);
 	}
-?>

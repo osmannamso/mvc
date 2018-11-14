@@ -1,4 +1,5 @@
 <?php
+
 function getUrlSegment($n)
 {
 	$url = explode('/', $_GET['url']);
@@ -14,18 +15,18 @@ function render($view, $data)
 }
 function connectDB()
 {
-	$x = (include '/core/configs/db.php');
+	$x = (include 'core/configs/db.php');
 	
 	return new mysqli($x['servername'], $x['username'], $x['password'], $x['dbname']);
 }
 function upload($image)
 {
-	$img_dir = '/upload/';
+	$img_dir = 'upload/';
 	$rand = rand(1, 9999);
 	
 	$temp = explode(".", $image["name"]);
 	$img = $img_dir . round(microtime(true)). $rand . '.' . end($temp);
-	$upload_icon = "/upload/".round(microtime(true)). $rand . '.' . end($temp);
+	$upload_icon = "upload/".round(microtime(true)). $rand . '.' . end($temp);
 	
 	move_uploaded_file($image["tmp_name"], $img);
 	
@@ -37,7 +38,10 @@ function img($id, $table)
 	
 	$sql = "SELECT img FROM $table WHERE id = $id";
 	$result = $con->query($sql);
-	$row = $result->fetch_assoc();
+	if($result->num_rows > 0)
+		$row = $result->fetch_assoc();
+	else
+		return null;
 	
 	return $row['img'];
 }
@@ -55,4 +59,14 @@ function getAll($table)
 	
 	return $array;
 }
-?>
+function delete($id, $table)
+{
+	$con = connectDB();
+	
+	$img = img($id, $table);
+	if($img)
+		unlink($img);
+	
+	$sql = "DELETE FROM $table WHERE id = $id";
+	$con->query($sql);
+}

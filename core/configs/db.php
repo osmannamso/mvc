@@ -5,4 +5,3 @@
 		'password' => "",
 		'dbname' => "practice"
 	];
-?>
