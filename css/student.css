@@ -1,0 +1,17 @@
+.nav{
+    bottom: 0;
+    position: fixed;
+    height: 70px;
+    background: #D3D3D3;
+    width: 100%;
+    display: flex;
+}
+.nav .item{
+    width: 25%;
+    text-align: center;
+    padding-top: 3px;
+}
+.item img{
+    margin-top: 12px;
+    width: 40%;
+}
